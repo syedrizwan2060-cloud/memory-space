@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Memory Space 🌸
 
-## Getting Started
+**A private, memory-first space for the moments that matter.**
 
-First, run the development server:
+Memory Space is a web application in development that aims to help friends, families, couples, and groups preserve shared memories, organize important dates, and plan future experiences together.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ✨ Planned Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- 🔒 **Private Spaces** — Separate spaces for different people and groups.
+- 📸 **Memory Books** — Keep photos, videos, captions, and written memories together.
+- 🌱 **Future Memories** — Create shared plans and turn completed experiences into memories.
+- 🎂 **Important Dates** — Track birthdays, anniversaries, and milestones.
+- 🔎 **Search and Collections** — Organize and rediscover meaningful moments.
+- 📱 **Responsive Design** — An experience designed for desktop and mobile.
+- 🛡️ **Privacy First** — Invite-only access and controlled sharing are core goals.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🛠️ Tech Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
 
-## Learn More
+Backend, authentication, and media-storage integrations are planned for future development.
 
-To learn more about Next.js, take a look at the following resources:
+## 🚧 Development Status
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The project is in its early development stage. The current dashboard is a UI prototype. Authentication, persistent data storage, secure sharing, and real media uploads still need to be implemented.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 💻 Run Locally
 
-## Deploy on Vercel
+**Requirements:** Node.js and npm.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Clone or download this repository.
+2. Open a terminal in the project folder.
+3. Install dependencies:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   ```bash
+   npm install
+   ```
+
+4. Start the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+5. Open [http://localhost:3000](http://localhost:3000).
+
+## 🎯 Vision
+
+To build a calm, beautiful, privacy-focused digital home for shared memories—without the pressure of a public social-media feed.
+
+---
+
+Created as an independent project for learning, experimentation, and future development.
