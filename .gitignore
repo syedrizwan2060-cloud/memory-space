@@ -39,3 +39,18 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+# Local backups and temporary inspection files
+*.bak
+*.backup
+*.before-*
+drive-integration-inspection.txt
+fix-text.cjs
+# Local-only Google Drive test pages and endpoints
+/src/app/drive-folders-test/
+/src/app/drive-upload-test/
+/src/app/api/google-drive/test/
+/src/app/api/google-drive/upload-test/
+/src/app/api/google-drive/download-test/
+
+# Additional local working backups
+*backup*

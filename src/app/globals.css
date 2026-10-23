@@ -12,15 +12,423 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
+  margin: 0;
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Memory Space themes are scoped to the active dashboard. The artwork is CSS-only,
+   so it loads quickly, works offline, and never depends on third-party image URLs. */
+main[data-space-theme] {
+  --space-surface: rgba(255, 253, 250, 0.88);
+  --space-surface-strong: rgba(255, 253, 250, 0.96);
+  --space-text: #39352f;
+  --space-muted: #817970;
+  --space-border: rgba(111, 86, 105, 0.18);
+  --space-accent: #816780;
+  position: relative;
+  isolation: isolate;
+  background-attachment: fixed !important;
+  transition: background-color 220ms ease, color 220ms ease;
+}
+
+main[data-space-theme]::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.36;
+  background-image:
+    radial-gradient(circle at 8% 12%, rgba(255,255,255,.72) 0 1px, transparent 2px),
+    radial-gradient(circle at 82% 18%, rgba(255,255,255,.68) 0 2px, transparent 3px),
+    radial-gradient(circle at 35% 78%, rgba(255,255,255,.55) 0 1px, transparent 2px);
+  background-size: 140px 140px, 210px 210px, 180px 180px;
+}
+
+/* Keep the dashboard content above the decorative background, but never override
+   fixed-position dialogs. The previous broad selector also matched modal overlay
+   divs, forcing them into normal document flow so they appeared below the page. */
+main[data-space-theme] > div:not(.fixed) {
+  position: relative;
+  z-index: 1;
+}
+
+main[data-space-theme="default"] {
+  background: #faf8f5 !important;
+}
+
+main[data-space-theme="sakura"] {
+  --space-surface: rgba(255, 249, 252, .84);
+  --space-surface-strong: rgba(255, 249, 252, .96);
+  --space-text: #513443;
+  --space-muted: #906f80;
+  --space-border: rgba(196, 104, 147, .24);
+  --space-accent: #bd5e8c;
+  background:
+    radial-gradient(ellipse at 8% 8%, rgba(255,255,255,.94) 0 8%, transparent 33%),
+    radial-gradient(ellipse at 92% 18%, rgba(247,183,211,.70), transparent 35%),
+    radial-gradient(ellipse at 8% 85%, rgba(250,211,226,.78), transparent 34%),
+    linear-gradient(135deg, #fff2f7, #fbe0eb 50%, #fff9fc) !important;
+}
+main[data-space-theme="sakura"]::before {
+  opacity: .23;
+  background-image:
+    radial-gradient(ellipse at center, #fff 0 9%, transparent 10%),
+    radial-gradient(ellipse at center, #e99abd 0 8%, transparent 9%),
+    radial-gradient(ellipse at center, #fff 0 7%, transparent 8%);
+  background-size: 110px 90px, 170px 140px, 220px 180px;
+}
+
+main[data-space-theme="cloud-heaven"] {
+  --space-surface: rgba(250, 254, 255, .83);
+  --space-surface-strong: rgba(250, 254, 255, .96);
+  --space-text: #29465e;
+  --space-muted: #607f98;
+  --space-border: rgba(82, 145, 190, .23);
+  --space-accent: #397da9;
+  background:
+    radial-gradient(ellipse at 18% 15%, rgba(255,255,255,.96) 0 9%, transparent 28%),
+    radial-gradient(ellipse at 78% 22%, rgba(255,255,255,.82) 0 10%, transparent 30%),
+    radial-gradient(ellipse at 90% 78%, rgba(166,219,250,.65), transparent 35%),
+    linear-gradient(145deg, #eaf8ff, #c9e9fb 52%, #f7fcff) !important;
+}
+main[data-space-theme="cloud-heaven"]::before {
+  opacity: .26;
+  background-image:
+    radial-gradient(ellipse at center, #fff 0 23%, transparent 24%),
+    radial-gradient(ellipse at center, #fff 0 18%, transparent 19%);
+  background-size: 230px 100px, 180px 85px;
+}
+
+main[data-space-theme="lavender"] {
+  --space-surface: rgba(253, 250, 255, .85);
+  --space-surface-strong: rgba(253, 250, 255, .97);
+  --space-text: #463657;
+  --space-muted: #817096;
+  --space-border: rgba(139, 112, 184, .24);
+  --space-accent: #8061a8;
+  background:
+    radial-gradient(ellipse at 10% 10%, rgba(255,255,255,.95), transparent 31%),
+    radial-gradient(ellipse at 90% 80%, rgba(205,184,241,.72), transparent 36%),
+    linear-gradient(135deg, #f7f1ff, #e3d7f7 53%, #fcf8ff) !important;
+}
+main[data-space-theme="secret-garden"] {
+  --space-surface: rgba(250, 255, 247, .84);
+  --space-surface-strong: rgba(250, 255, 247, .96);
+  --space-text: #304b35;
+  --space-muted: #6b856c;
+  --space-border: rgba(91, 139, 91, .25);
+  --space-accent: #4f8057;
+  background:
+    radial-gradient(ellipse at 8% 15%, rgba(255,255,255,.9), transparent 30%),
+    radial-gradient(ellipse at 86% 72%, rgba(187,218,174,.72), transparent 36%),
+    linear-gradient(135deg, #f2faec, #d9ebcf 53%, #fbfff4) !important;
+}
+main[data-space-theme="moonlight"] {
+  --space-surface: rgba(31, 43, 70, .82);
+  --space-surface-strong: rgba(28, 39, 64, .96);
+  --space-text: #f0f3ff;
+  --space-muted: #c1cce6;
+  --space-border: rgba(175, 196, 239, .25);
+  --space-accent: #8ba9ed;
+  background:
+    radial-gradient(ellipse at 80% 8%, rgba(143,170,228,.42), transparent 30%),
+    radial-gradient(ellipse at 15% 80%, rgba(84,107,166,.36), transparent 34%),
+    linear-gradient(145deg, #18213e, #263b63 56%, #3c527a) !important;
+}
+main[data-space-theme="moonlight"]::before,
+main[data-space-theme="midnight-velvet"]::before {
+  opacity: .4;
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,.85) 0 1px, transparent 1.8px),
+    radial-gradient(circle, rgba(255,255,255,.6) 0 1px, transparent 2px);
+  background-size: 95px 95px, 155px 155px;
+}
+main[data-space-theme="golden-sunset"] {
+  --space-surface: rgba(255, 250, 242, .85);
+  --space-surface-strong: rgba(255, 250, 242, .97);
+  --space-text: #604333;
+  --space-muted: #98745c;
+  --space-border: rgba(194, 123, 75, .24);
+  --space-accent: #bd7048;
+  background:
+    radial-gradient(ellipse at 82% 12%, rgba(255,245,208,.9), transparent 30%),
+    radial-gradient(ellipse at 10% 85%, rgba(245,171,151,.65), transparent 35%),
+    linear-gradient(145deg, #fff3df, #f6c8a5 55%, #f1b7c0) !important;
+}
+main[data-space-theme="cozy-memories"] {
+  --space-surface: rgba(255, 251, 244, .87);
+  --space-surface-strong: rgba(255, 251, 244, .97);
+  --space-text: #584536;
+  --space-muted: #8d7764;
+  --space-border: rgba(153, 117, 78, .23);
+  --space-accent: #98714d;
+  background:
+    radial-gradient(ellipse at 12% 12%, rgba(255,255,255,.9), transparent 32%),
+    radial-gradient(ellipse at 88% 80%, rgba(223,192,153,.65), transparent 35%),
+    linear-gradient(135deg, #fbf2e5, #ead6bc 54%, #fffaf0) !important;
+}
+main[data-space-theme="midnight-velvet"] {
+  --space-surface: rgba(42, 30, 52, .86);
+  --space-surface-strong: rgba(35, 25, 45, .97);
+  --space-text: #f8effb;
+  --space-muted: #d3bfdc;
+  --space-border: rgba(211, 172, 224, .24);
+  --space-accent: #b18ac2;
+  background:
+    radial-gradient(ellipse at 85% 10%, rgba(151,103,172,.36), transparent 30%),
+    radial-gradient(ellipse at 8% 88%, rgba(100,63,116,.42), transparent 35%),
+    linear-gradient(145deg, #21172d, #382541 55%, #4b3156) !important;
+}
+
+/* Theme surfaces are applied ONLY to the main content section.
+   The sidebar is a sibling of this section and intentionally keeps its own original styling. */
+main[data-space-theme]:not([data-space-theme="default"]) > div > section [class*="rounded-3xl"][class*="bg-white"],
+main[data-space-theme]:not([data-space-theme="default"]) > div > section [class*="rounded-2xl"][class*="bg-white"],
+main[data-space-theme]:not([data-space-theme="default"]) > div > section [class*="rounded-xl"][class*="bg-white"],
+main[data-space-theme]:not([data-space-theme="default"]) > div > section [class*="bg-white"],
+main[data-space-theme]:not([data-space-theme="default"]) > div > section [class*="bg-[#fffdfa]"] {
+  background-color: var(--space-surface) !important;
+  border-color: var(--space-border) !important;
+}
+main[data-space-theme]:not([data-space-theme="default"]) > div > section [class*="bg-[#faf8f5]"],
+main[data-space-theme]:not([data-space-theme="default"]) > div > section [class*="bg-[#fffdfa]"],
+main[data-space-theme]:not([data-space-theme="default"]) > div > section [class*="bg-[#faf7f3]"],
+main[data-space-theme]:not([data-space-theme="default"]) > div > section [class*="bg-[#f5f0eb]"],
+main[data-space-theme]:not([data-space-theme="default"]) > div > section [class*="bg-[#fff"],
+main[data-space-theme]:not([data-space-theme="default"]) > div > section [class*="bg-[#faf"],
+main[data-space-theme]:not([data-space-theme="default"]) > div > section [class*="bg-[#f8"],
+main[data-space-theme]:not([data-space-theme="default"]) > div > section [class*="bg-[#f5"],
+main[data-space-theme]:not([data-space-theme="default"]) > div > section [class*="bg-[#f4"],
+main[data-space-theme]:not([data-space-theme="default"]) > div > section [class*="bg-[#eee"] {
+  background-color: var(--space-surface) !important;
+}
+main[data-space-theme]:not([data-space-theme="default"]) > div > section [class*="border-[#"] {
+  border-color: var(--space-border) !important;
+}
+main[data-space-theme]:not([data-space-theme="default"]) > div > section [class*="text-[#"] {
+  color: var(--space-text) !important;
+}
+main[data-space-theme]:not([data-space-theme="default"]) > div > section [class*="bg-[#816780]"],
+main[data-space-theme]:not([data-space-theme="default"]) > div > section [class*="bg-[#70566f]"],
+main[data-space-theme]:not([data-space-theme="default"]) > div > section [class*="bg-[#775b75]"] {
+  background-color: var(--space-accent) !important;
+  color: #fff !important;
+}
+main[data-space-theme]:not([data-space-theme="default"]) > div > section [class*="bg-[#eee5ed]"] {
+  background-color: color-mix(in srgb, var(--space-accent) 17%, transparent) !important;
+}
+main[data-space-theme]:not([data-space-theme="default"]) > div > section input,
+main[data-space-theme]:not([data-space-theme="default"]) > div > section textarea,
+main[data-space-theme]:not([data-space-theme="default"]) > div > section select {
+  background-color: var(--space-surface-strong);
+  border-color: var(--space-border);
+  color: var(--space-text);
+}
+main[data-space-theme]:not([data-space-theme="default"]) > div > section input::placeholder,
+main[data-space-theme]:not([data-space-theme="default"]) > div > section textarea::placeholder {
+  color: var(--space-muted);
+}
+main[data-space-theme]:not([data-space-theme="default"]) > div > section button:focus-visible,
+main[data-space-theme]:not([data-space-theme="default"]) > div > section a:focus-visible,
+main[data-space-theme]:not([data-space-theme="default"]) > div > section input:focus-visible,
+main[data-space-theme]:not([data-space-theme="default"]) > div > section textarea:focus-visible,
+main[data-space-theme]:not([data-space-theme="default"]) > div > section select:focus-visible {
+  outline: 2px solid var(--space-accent);
+  outline-offset: 2px;
+}
+
+/* Personal dark appearance is used when the active space keeps the classic theme. */
+main[data-appearance="dark"][data-space-theme="default"] {
+  --space-surface: rgba(31, 30, 38, .94);
+  --space-surface-strong: #24232d;
+  --space-text: #f0edf5;
+  --space-muted: #c1bbc9;
+  --space-border: rgba(218, 203, 228, .18);
+  --space-accent: #b89ac8;
+  background: #17161d !important;
+  color: #f0edf5 !important;
+}
+main[data-appearance="dark"][data-space-theme="default"] > div > section [class*="rounded-3xl"][class*="bg-white"],
+main[data-appearance="dark"][data-space-theme="default"] > div > section [class*="rounded-2xl"][class*="bg-white"],
+main[data-appearance="dark"][data-space-theme="default"] > div > section [class*="rounded-xl"][class*="bg-white"],
+main[data-appearance="dark"][data-space-theme="default"] > div > section [class*="bg-[#faf8f5]"],
+main[data-appearance="dark"][data-space-theme="default"] > div > section [class*="bg-[#fffdfa]"],
+main[data-appearance="dark"][data-space-theme="default"] > div > section [class*="bg-[#faf7f3]"] {
+  background-color: var(--space-surface) !important;
+  border-color: var(--space-border) !important;
+}
+main[data-appearance="dark"][data-space-theme="default"] > div > section [class*="text-[#"] {
+  color: var(--space-text) !important;
+}
+main[data-appearance="dark"][data-space-theme="default"] > div > section input,
+main[data-appearance="dark"][data-space-theme="default"] > div > section textarea,
+main[data-appearance="dark"][data-space-theme="default"] > div > section select {
+  background: var(--space-surface-strong);
+  border-color: var(--space-border);
+  color: var(--space-text);
+}
+main[data-appearance="dark"][data-space-theme="default"] > div > section input::placeholder,
+main[data-appearance="dark"][data-space-theme="default"] > div > section textarea::placeholder {
+  color: var(--space-muted);
+}
+
+@media (max-width: 640px) {
+  main[data-space-theme] {
+    background-attachment: scroll !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  main[data-space-theme] {
+    transition: none;
+  }
+}
+
+
+/* Theme-aware memory reader. The reader is portaled to document.body so its fixed
+   overlay is anchored to the viewport and cannot be pushed down by dashboard layout. */
+.memory-detail-overlay {
+  --space-surface: rgba(255, 253, 250, .97);
+  --space-surface-strong: #fffdfa;
+  --space-text: #39352f;
+  --space-muted: #817970;
+  --space-border: rgba(111, 86, 105, .22);
+  --space-accent: #816780;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.memory-detail-overlay[data-space-theme="sakura"] { --space-surface: rgba(255,249,252,.97); --space-surface-strong: #fff9fc; --space-text: #513443; --space-muted: #805d70; --space-border: rgba(196,104,147,.28); --space-accent: #bd5e8c; }
+.memory-detail-overlay[data-space-theme="cloud-heaven"] { --space-surface: rgba(250,254,255,.97); --space-surface-strong: #fafeff; --space-text: #29465e; --space-muted: #55738b; --space-border: rgba(82,145,190,.28); --space-accent: #397da9; }
+.memory-detail-overlay[data-space-theme="lavender"] { --space-surface: rgba(253,250,255,.97); --space-surface-strong: #fdfaFF; --space-text: #463657; --space-muted: #76638d; --space-border: rgba(139,112,184,.28); --space-accent: #8061a8; }
+.memory-detail-overlay[data-space-theme="secret-garden"] { --space-surface: rgba(250,255,247,.97); --space-surface-strong: #fafff7; --space-text: #304b35; --space-muted: #5f795f; --space-border: rgba(91,139,91,.28); --space-accent: #4f8057; }
+.memory-detail-overlay[data-space-theme="moonlight"] { --space-surface: rgba(31,43,70,.98); --space-surface-strong: #1c2740; --space-text: #f0f3ff; --space-muted: #c1cce6; --space-border: rgba(175,196,239,.28); --space-accent: #8ba9ed; }
+.memory-detail-overlay[data-space-theme="golden-sunset"] { --space-surface: rgba(255,250,242,.98); --space-surface-strong: #fffaf2; --space-text: #604333; --space-muted: #89664f; --space-border: rgba(194,123,75,.28); --space-accent: #bd7048; }
+.memory-detail-overlay[data-space-theme="cozy-memories"] { --space-surface: rgba(255,251,244,.98); --space-surface-strong: #fffbf4; --space-text: #584536; --space-muted: #7e6856; --space-border: rgba(153,117,78,.28); --space-accent: #98714d; }
+.memory-detail-overlay[data-space-theme="midnight-velvet"] { --space-surface: rgba(42,30,52,.98); --space-surface-strong: #23192d; --space-text: #f8effb; --space-muted: #d3bfdc; --space-border: rgba(211,172,224,.28); --space-accent: #b18ac2; }
+.memory-detail-overlay[data-appearance="dark"][data-space-theme="default"] { --space-surface: rgba(31,30,38,.98); --space-surface-strong: #24232d; --space-text: #f0edf5; --space-muted: #c1bbc9; --space-border: rgba(218,203,228,.22); --space-accent: #b89ac8; }
+.memory-detail-dialog {
+  color: var(--space-text);
+  background: var(--space-surface) !important;
+  border-color: var(--space-border) !important;
+  backdrop-filter: blur(22px);
+  scrollbar-gutter: stable;
+}
+.memory-detail-overlay:not([data-space-theme="default"]) .memory-detail-dialog [class*="text-[#"] { color: var(--space-text) !important; }
+.memory-detail-overlay:not([data-space-theme="default"]) .memory-detail-dialog [class*="bg-white"],
+.memory-detail-overlay:not([data-space-theme="default"]) .memory-detail-dialog [class*="bg-[#fffdfa]"],
+.memory-detail-overlay:not([data-space-theme="default"]) .memory-detail-dialog [class*="bg-[#f8f1f7]"] {
+  background-color: var(--space-surface-strong) !important;
+  border-color: var(--space-border) !important;
+}
+.memory-detail-overlay:not([data-space-theme="default"]) .memory-detail-dialog input,
+.memory-detail-overlay:not([data-space-theme="default"]) .memory-detail-dialog textarea,
+.memory-detail-overlay:not([data-space-theme="default"]) .memory-detail-dialog select {
+  background-color: var(--space-surface-strong) !important;
+  color: var(--space-text) !important;
+  border-color: var(--space-border) !important;
+}
+.memory-detail-overlay:not([data-space-theme="default"]) .memory-detail-dialog input::placeholder,
+.memory-detail-overlay:not([data-space-theme="default"]) .memory-detail-dialog textarea::placeholder { color: var(--space-muted) !important; }
+.memory-detail-dialog button:focus-visible { outline: 2px solid var(--space-accent); outline-offset: 2px; }
+@media (max-width: 640px) {
+  .memory-detail-overlay { align-items: flex-start; padding-top: max(12px, env(safe-area-inset-top)); padding-bottom: max(12px, env(safe-area-inset-bottom)); }
+  .memory-detail-dialog { max-height: 88dvh; border-radius: 22px; }
+}
+
+/* FULL-SPACE THEME: SIDEBAR SUPPORT */
+main[data-space-theme]:not([data-space-theme="default"]) > div > aside {
+  background-color: var(--space-surface-strong) !important;
+  color: var(--space-text) !important;
+  border-color: var(--space-border) !important;
+  transition: background-color 220ms ease, color 220ms ease, border-color 220ms ease;
+}
+
+main[data-space-theme]:not([data-space-theme="default"]) > div > aside [class*="bg-white"],
+main[data-space-theme]:not([data-space-theme="default"]) > div > aside [class*="bg-[#fffdfa]"],
+main[data-space-theme]:not([data-space-theme="default"]) > div > aside [class*="bg-[#faf8f5]"] {
+  background-color: var(--space-surface) !important;
+  border-color: var(--space-border) !important;
+}
+
+main[data-space-theme]:not([data-space-theme="default"]) > div > aside [class*="text-[#"] {
+  color: var(--space-text) !important;
+}
+
+main[data-space-theme]:not([data-space-theme="default"]) > div > aside [class*="border-[#"] {
+  border-color: var(--space-border) !important;
+}
+
+main[data-space-theme]:not([data-space-theme="default"]) > div > aside [class*="bg-[#816780]"],
+main[data-space-theme]:not([data-space-theme="default"]) > div > aside [class*="bg-[#70566f]"],
+main[data-space-theme]:not([data-space-theme="default"]) > div > aside [class*="bg-[#775b75]"] {
+  background-color: var(--space-accent) !important;
+  color: #fff !important;
+}
+
+main[data-space-theme]:not([data-space-theme="default"]) > div > aside [class*="bg-[#eee5ed]"],
+main[data-space-theme]:not([data-space-theme="default"]) > div > aside [class*="bg-[#eadde8]"] {
+  background-color: color-mix(in srgb, var(--space-accent) 17%, var(--space-surface-strong)) !important;
+}
+
+main[data-space-theme]:not([data-space-theme="default"]) > div > aside button:focus-visible,
+main[data-space-theme]:not([data-space-theme="default"]) > div > aside a:focus-visible {
+  outline: 2px solid var(--space-accent);
+  outline-offset: 2px;
+}
+
+/* FULL-SPACE THEME: DIALOGS AND THEME GALLERY
+   Colors only — deliberately does not alter overlay positioning. */
+main[data-space-theme]:not([data-space-theme="default"]) [role="dialog"] {
+  color: var(--space-text);
+  background-color: var(--space-surface-strong) !important;
+  border-color: var(--space-border) !important;
+}
+
+main[data-space-theme]:not([data-space-theme="default"]) [role="dialog"] [class*="text-[#"] {
+  color: var(--space-text) !important;
+}
+
+main[data-space-theme]:not([data-space-theme="default"]) [role="dialog"] [class*="border-[#"] {
+  border-color: var(--space-border) !important;
+}
+
+main[data-space-theme]:not([data-space-theme="default"]) [role="dialog"] [class*="bg-white"],
+main[data-space-theme]:not([data-space-theme="default"]) [role="dialog"] [class*="bg-[#fffdfa]"] {
+  background-color: var(--space-surface) !important;
+  border-color: var(--space-border) !important;
+}
+
+main[data-space-theme]:not([data-space-theme="default"]) [role="dialog"] input,
+main[data-space-theme]:not([data-space-theme="default"]) [role="dialog"] textarea,
+main[data-space-theme]:not([data-space-theme="default"]) [role="dialog"] select {
+  background-color: var(--space-surface-strong) !important;
+  color: var(--space-text) !important;
+  border-color: var(--space-border) !important;
+}
+
+main[data-space-theme]:not([data-space-theme="default"]) [role="dialog"] input::placeholder,
+main[data-space-theme]:not([data-space-theme="default"]) [role="dialog"] textarea::placeholder {
+  color: var(--space-muted) !important;
+}
+
+main[data-space-theme]:not([data-space-theme="default"]) [role="dialog"] button:focus-visible {
+  outline: 2px solid var(--space-accent);
+  outline-offset: 2px;
+}
+
+/* Theme gallery cards */
+main[data-space-theme]:not([data-space-theme="default"]) article:has([style*="background"]) {
+  border-color: var(--space-border) !important;
+}
+
+main[data-space-theme]:not([data-space-theme="default"]) article:has([style*="background"]) > div:not([style*="background"]) {
+  background-color: var(--space-surface-strong) !important;
+}
+
+main[data-space-theme]:not([data-space-theme="default"]) article:has([style*="background"]) h4,
+main[data-space-theme]:not([data-space-theme="default"]) article:has([style*="background"]) p {
+  color: var(--space-text) !important;
 }
